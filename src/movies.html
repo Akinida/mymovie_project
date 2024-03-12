@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en"> <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style> 
+body {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    background-image: url('background.jpg');
+    background-color: #000000;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.wrapper {
+    padding: 20px;
+    max-height: 100%;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(22, 22, 23, 0.7); /* Semi-transparent navbar */
+    color: #fff;
+    padding: 10px 20px; /* Adjust padding */
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative; /* Make the navbar position relative for absolute positioning */
+}
+
+/* Logo styling */
+.nav-logo img {
+    width: 110px; /* Adjust logo width */
+}
+
+/* Navigation links styling */
+.nav-links {
+    display: flex;
+    margin-right: 10px;
+    align-items: center; /* Align links vertically */
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: relative; /* Make the links position relative for absolute positioning */
+    transition: all 0.3s; /* Add transition effect */
+    overflow: hidden; /* Hide overflow */
+}
+
+/* Active link indicator */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #d4aa11; /* Yellow color for the active link indicator */
+    border-radius: 5px 5px 0 0; /* Rounded corners at the bottom */
+}
+
+/* Hover effect for links */
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white on hover */
+    transform: translateY(-2px); /* Move link upwards */
+    outline: 2px solid #d4aa11;
+}
+
+h2 {
+    color: #d4aa11;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(38, 39, 41, 0.7);
+}
+
+.thriller-movie,
+.thriller-movie2,
+.action-movie,
+.action-movie2,
+.horror-movie,
+.horror-movie2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.thriller,
+.thriller2,
+.action,
+.action2,
+.horror,
+.horror2 {
+    width: 210px;
+    background-color: rgba(255, 255, 254, 0.814); /* Semi-transparent background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 246, 246, 0.5); /* Added shadow effect */
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.thriller img,
+.thriller2 img,
+.action img,
+.action2 img,
+.horror img,
+.horror2 img {
+    width: 190px;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.thriller-details h3,
+.thriller2-details h3,
+.action-details h3,
+.action2-details h3,
+.horror-details h3,
+.horror2-details h3 {
+    color: #000000;
+    margin: 5px 0;
+    text-align: center;
+}
+
+/* Styles for the heart shape */
+.like-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5)); /* Add drop shadow */
+}
+
+.heart {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: none; /* Remove the stroke */
+    transition: fill 0.3s;
+}
+
+.heart-path {
+    stroke: #000000; /* Set stroke color */
+    stroke-width: 2;
+    transition: fill 0.3s;
+}
+
+/* Animation keyframes */
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Styles for the red color upon clicking */
+.heart-path.red {
+    fill: #ff0000;
+    animation: bounce 0.3s ease;
+}
+
+.watch-list-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* Styles for the add icon */
+.add {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: 20px; /* Remove the stroke */
+    transition: fill 0.3s;
+}
+
+.add-icon {
+    stroke: #000000; /* Set stroke color */
+    stroke-width: 30px; /* Increase the stroke width */
+    transition: fill 0.3s; /* Add transition for icon color change */
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(87, 85, 85, 0.8);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.popup.show {
+    display: block;
+}
+
+/* Animation keyframes */
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.add-icon.green {
+    fill: #36bd05;
+    animation: bounce 0.3s ease; /* Add transition for icon color change */
+}
+
+.button-group {
+    text-align: center;
+}
+
+.watch-list-btn,
+.like-btn {
+    margin-bottom: 10px;
+}
+
+</style>
+</head> 
+<body> 
+    <div class="wrapper">
+        <div class="navbar">
+            <div class="nav-logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <div class="nav-links">
+                <a href="homepage.html" class="nav-link">Home</a>
+                <a href="movies.html" class="nav-link active">Movies</a>
+                <a href="series.html" class="nav-link">TV Series</a>
+                <a href="mylist.html" class="nav-link">My List</a>
+                <a href="index.html" class="nav-link">My Review</a>
+            </div>
+        </div>
+        <div id="popup" class="popup"></div>
+        <h2>Thriller Movie</h2>
+        <div class="thriller-movie">
+            <div class="thriller" id="ballerina">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller-details"></div>
+            </div>
+            <div class="thriller" id="gravity">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller-details"></div>
+            </div>
+            <div class="thriller" id="the-8-night">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller-details"></div>
+            </div>
+            <div class="thriller" id="parasite">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller-details"></div>
+            </div>
+            <div class="thriller" id="next">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller-details"></div>
+            </div>
+            <div class="thriller" id="stowaway">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller-details"></div>
+            </div>
+        </div>
+        <div class="thriller-movie2">
+            <div class="thriller2" id="tenet">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller2-details"></div>
+            </div>
+            <div class="thriller2" id="davinci">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller2-details"></div>
+            </div>
+            <div class="thriller2" id="metamorphosis">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller2-details"></div>
+            </div>
+            <div class="thriller2" id="thanksgiving">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller2-details"></div>
+            </div>
+            <div class="thriller2" id="eagleEye">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller2-details"></div>
+            </div>
+            <div class="thriller2" id="venom">
+                <img src="poster.jpg" alt="poster">
+                <div class="thriller2-details"></div>
+            </div>
+        </div>
+        
+        <!-- ACTION -->
+        <h2>Action Movie</h2>
+        <div class="action-movie">
+            <div class="action" id="the-Childe">
+                <img src="poster.jpg" alt="poster">
+                <div class="action-details"></div>
+            </div>
+            <div class="action" id="dilwale">
+                <img src="poster.jpg" alt="poster">
+                <div class="action-details"></div>
+            </div>
+            <div class="action" id="lift">
+                <img src="poster.jpg" alt="poster">
+                <div class="action-details"></div>
+            </div>
+            <div class="action" id="alienoid">
+                <img src="poster.jpg" alt="poster">
+                <div class="action-details"></div>
+            </div>
+            <div class="action" id="double-World">
+                <img src="poster.jpg" alt="poster">
+                <div class="action-details"></div>
+            </div>
+            <div class="action" id="paskal">
+                <img src="poster.jpg" alt="poster">
+                <div class="action-details"></div>
+            </div>
+        </div>
+        <div class="action-movie2">
+            <div class="action2" id="sixtyMinutes">
+                <img src="poster.jpg" alt="poster">
+                <div class="action2-details"></div>
+            </div>
+            <div class="action2" id="believer">
+                <img src="poster.jpg" alt="poster">
+                <div class="action2-details"></div>
+            </div>
+            <div class="action2" id="rampant">
+                <img src="poster.jpg" alt="poster">
+                <div class="action2-details"></div>
+            </div>
+            <div class="action2" id="uncharted">
+                <img src="poster.jpg" alt="poster">
+                <div class="action2-details"></div>
+            </div>
+            <div class="action2" id="godzilla">
+                <img src="poster.jpg" alt="poster">
+                <div class="action2-details"></div>
+            </div>
+            <div class="action2" id="warcraft">
+                <img src="poster.jpg" alt="poster">
+                <div class="action2-details"></div>
+            </div>
+        </div>
+
+<!-- HORROR -->
+    <h2>Horror Movie</h2>
+    <div class="horror-movie">
+        <div class="horror" id="peninsula">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror-details"></div>
+        </div>
+        <div class="horror" id="theMedium">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror-details"></div>
+        </div>
+        <div class="horror" id="evilDeadRise">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror-details"></div>
+        </div>
+        <div class="horror" id="indigo">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror-details"></div>
+        </div>
+        <div class="horror" id="deadSilence">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror-details"></div>
+        </div>
+        <div class="horror" id="susuk">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror-details"></div>
+        </div>
+    </div>
+    <div class="horror-movie2">
+        <div class="horror2" id="tigerStripes">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror2-details"></div>
+        </div>
+        <div class="horror2" id="quarantine">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror2-details"></div>
+        </div>
+        <div class="horror2" id="creep">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror2-details"></div>
+        </div>
+        <div class="horror2" id="case">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror2-details"></div>
+        </div>
+        <div class="horror2" id="crawl">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror2-details"></div>
+        </div>
+        <div class="horror2" id="sewu">
+            <img src="poster.jpg" alt="poster">
+            <div class="horror2-details"></div>
+        </div>
+    </div>
+
+</div>
+<script src="movies.js">
+    
+</script>
+</body>
+</html> 
